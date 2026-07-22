@@ -6,90 +6,131 @@
 <title>Encanto Kids ADM</title>
 
 <link rel="stylesheet" href="css/dashboard.css">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 </head>
+
 <body>
 
 <div class="sidebar">
 
     <div class="logo">
         <h2>🎈 Encanto Kids</h2>
-        <span>Painel Administrativo</span>
+        <p>Painel Administrativo</p>
     </div>
 
-    <ul>
-        <li class="active">🏠 Dashboard</li>
-        <li>📅 Reservas</li>
-        <li>👥 Clientes</li>
-        <li>🎪 Brinquedos</li>
-        <li>💰 Financeiro</li>
-        <li>📊 Relatórios</li>
-        <li>⚙ Configurações</li>
-    </ul>
+    <nav>
+
+        <a class="active">
+            <i class="fas fa-home"></i>
+            Dashboard
+        </a>
+
+        <a>
+            <i class="fas fa-calendar"></i>
+            Reservas
+        </a>
+
+        <a>
+            <i class="fas fa-users"></i>
+            Clientes
+        </a>
+
+        <a>
+            <i class="fas fa-castle"></i>
+            Brinquedos
+        </a>
+
+        <a>
+            <i class="fas fa-dollar-sign"></i>
+            Financeiro
+        </a>
+
+        <a>
+            <i class="fas fa-chart-bar"></i>
+            Relatórios
+        </a>
+
+        <a>
+            <i class="fas fa-gear"></i>
+            Configurações
+        </a>
+
+    </nav>
 
 </div>
 
-<div class="content">
+<div class="main">
 
     <div class="topbar">
-        <h1>Dashboard</h1>
 
-        <div class="admin">
-            👤 Administrador
+        <div>
+            <h1>Dashboard</h1>
+            <span>Bem-vindo ao sistema Encanto Kids</span>
         </div>
+
+        <div class="user">
+            <i class="fas fa-user-circle"></i>
+            Administrador
+        </div>
+
     </div>
 
     <div class="cards">
 
         <div class="card">
             <h3>Reservas Hoje</h3>
-            <span>0</span>
+            <h2>15</h2>
         </div>
 
         <div class="card">
             <h3>Clientes</h3>
-            <span>0</span>
+            <h2>87</h2>
         </div>
 
         <div class="card">
             <h3>Brinquedos</h3>
-            <span>0</span>
+            <h2>12</h2>
         </div>
 
         <div class="card">
             <h3>Faturamento</h3>
-            <span>R$ 0.00</span>
+            <h2>R$ 5.230</h2>
         </div>
 
     </div>
 
-    <div class="painel">
+    <div class="table-box">
 
-        <div class="reservas">
-            <h2>Últimas Reservas</h2>
+        <h2>Últimas Reservas</h2>
 
-            <table>
+        <table>
 
+            <thead>
                 <tr>
                     <th>Cliente</th>
                     <th>Brinquedo</th>
                     <th>Status</th>
                 </tr>
+            </thead>
+
+            <tbody>
 
                 <tr>
                     <td>João Silva</td>
                     <td>Pula-Pula</td>
-                    <td>Confirmado</td>
+                    <td><span class="ok">Confirmado</span></td>
                 </tr>
 
                 <tr>
                     <td>Maria Souza</td>
                     <td>Tobogã</td>
-                    <td>Pendente</td>
+                    <td><span class="pendente">Pendente</span></td>
                 </tr>
 
-            </table>
+            </tbody>
 
-        </div>
+        </table>
 
     </div>
 
