@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Brinquedos - Encanto Kids</title>
+
+<link rel="stylesheet" href="css/dashboard.css">
+
+<style>
+
+.cards-brinquedos{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+}
+
+.brinquedo-card{
+    background:#111827;
+    border:1px solid #374151;
+    border-radius:15px;
+    overflow:hidden;
+}
+
+.brinquedo-img{
+    height:220px;
+    background:#1f2937;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:50px;
+}
+
+.brinquedo-info{
+    padding:20px;
+}
+
+.brinquedo-info h3{
+    margin-bottom:10px;
+}
+
+.valor{
+    color:#ff7b00;
+    font-size:24px;
+    font-weight:bold;
+    margin:10px 0;
+}
+
+.btn{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#ff7b00;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="content">
+
+    <h1>Brinquedos</h1>
+
+    <div class="cards-brinquedos">
+
+        <div class="brinquedo-card">
+
+            <div class="brinquedo-img">
+                🎪
+            </div>
+
+            <div class="brinquedo-info">
+
+                <h3>Pula-Pula</h3>
+
+                <p>Ideal para festas infantis.</p>
+
+                <div class="valor">
+                    R$ 149,99
+                </div>
+
+                <button class="btn">
+                    Editar
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="brinquedo-card">
+
+            <div class="brinquedo-img">
+                🏰
+            </div>
+
+            <div class="brinquedo-info">
+
+                <h3>Castelo Inflável</h3>
+
+                <p>Diversão garantida para crianças.</p>
+
+                <div class="valor">
+                    R$ 149,99
+                </div>
+
+                <button class="btn">
+                    Editar
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="brinquedo-card">
+
+            <div class="brinquedo-img">
+                🎢
+            </div>
+
+            <div class="brinquedo-info">
+
+                <h3>Tobogã</h3>
+
+                <p>Perfeito para eventos maiores.</p>
+
+                <div class="valor">
+                    R$ 149,99
+                </div>
+
+                <button class="btn">
+                    Editar
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
