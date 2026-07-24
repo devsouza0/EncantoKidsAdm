@@ -2,21 +2,22 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,sans-serif;
+font-family:Segoe UI,sans-serif;
 }
 
 body{
 display:flex;
-background:#0d0d0d;
+background:#0d1117;
 color:white;
 min-height:100vh;
 }
 
 .sidebar{
 width:260px;
-background:#131313;
+background:#111827;
 padding:25px;
-border-right:1px solid #222;
+display:flex;
+flex-direction:column;
 }
 
 .logo{
@@ -24,33 +25,36 @@ margin-bottom:40px;
 }
 
 .logo h2{
-color:#ff8c00;
-margin-bottom:5px;
+color:#ff7b00;
 }
 
-.logo span{
+.logo p{
 color:#999;
 font-size:14px;
 }
 
-.sidebar ul{
-list-style:none;
+nav{
+display:flex;
+flex-direction:column;
+gap:10px;
 }
 
-.sidebar li{
-padding:15px;
-margin-bottom:10px;
+nav a{
+padding:14px;
 border-radius:12px;
 cursor:pointer;
+display:flex;
+align-items:center;
+gap:12px;
 transition:.3s;
 }
 
-.sidebar li:hover,
-.sidebar .active{
-background:#ff8c00;
+nav a:hover,
+.active{
+background:#ff7b00;
 }
 
-.content{
+.main{
 flex:1;
 padding:30px;
 }
@@ -62,8 +66,12 @@ align-items:center;
 margin-bottom:30px;
 }
 
-.admin{
-background:#181818;
+.topbar span{
+color:#888;
+}
+
+.user{
+background:#161b22;
 padding:12px 20px;
 border-radius:12px;
 }
@@ -76,45 +84,47 @@ margin-bottom:30px;
 }
 
 .card{
-background:#181818;
+background:#161b22;
 padding:25px;
-border-radius:16px;
-border:1px solid #252525;
+border-radius:20px;
+border:1px solid #222;
 }
 
 .card h3{
+color:#999;
 margin-bottom:15px;
-color:#ccc;
 }
 
-.card span{
-font-size:28px;
-font-weight:bold;
-color:#ff8c00;
+.card h2{
+color:#ff7b00;
 }
 
-.reservas{
-background:#181818;
+.table-box{
+background:#161b22;
 padding:25px;
-border-radius:16px;
-border:1px solid #252525;
-}
-
-.reservas h2{
-margin-bottom:20px;
+border-radius:20px;
 }
 
 table{
 width:100%;
 border-collapse:collapse;
+margin-top:20px;
 }
 
 th,td{
 padding:15px;
 text-align:left;
-border-bottom:1px solid #2a2a2a;
+border-bottom:1px solid #222;
 }
 
-th{
-color:#ff8c00;
+.ok{
+background:#00a86b;
+padding:6px 12px;
+border-radius:20px;
+}
+
+.pendente{
+background:#ff7b00;
+padding:6px 12px;
+border-radius:20px;
 }
