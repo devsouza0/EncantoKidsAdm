@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Encanto Kids ADM</title>
 
 <link rel="stylesheet" href="css/dashboard.css">
@@ -19,55 +18,52 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <div class="sidebar">
 
     <div class="logo">
-        <i class="fas fa-star"></i>
-        <div>
-            <h2>Encanto Kids</h2>
-            <p>Painel Administrativo</p>
-        </div>
+        <h2>🎈 Encanto Kids</h2>
+        <p>Painel Administrativo</p>
     </div>
 
-    <div class="menu">
+    <nav>
 
         <a href="#" class="active">
-            <i class="fas fa-house"></i>
-            Dashboard
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
         </a>
 
         <a href="#">
-            <i class="fas fa-calendar-days"></i>
-            Reservas
+            <i class="fas fa-calendar"></i>
+            <span>Reservas</span>
         </a>
 
         <a href="#">
             <i class="fas fa-users"></i>
-            Clientes
+            <span>Clientes</span>
         </a>
 
         <a href="#">
-            <i class="fas fa-volleyball"></i>
-            Brinquedos
+            <i class="fas fa-gamepad"></i>
+            <span>Brinquedos</span>
         </a>
 
         <a href="#">
-            <i class="fas fa-money-bill-wave"></i>
-            Financeiro
+            <i class="fas fa-dollar-sign"></i>
+            <span>Financeiro</span>
         </a>
 
         <a href="#">
             <i class="fas fa-chart-line"></i>
-            Relatórios
+            <span>Relatórios</span>
         </a>
 
         <a href="#">
-            <i class="fas fa-gear"></i>
-            Configurações
+            <i class="fas fa-cog"></i>
+            <span>Configurações</span>
         </a>
 
-    </div>
+    </nav>
 
 </div>
 
-<div class="content">
+<div class="main">
 
     <header>
 
@@ -76,7 +72,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             <p>Bem-vindo ao sistema Encanto Kids</p>
         </div>
 
-        <div class="user">
+        <div class="admin">
             <i class="fas fa-user-circle"></i>
             Administrador
         </div>
@@ -102,12 +98,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
         <div class="card">
             <h3>Faturamento</h3>
-            <h2>R$ 0.00</h2>
+            <h2>R$ 0,00</h2>
         </div>
 
     </section>
 
-    <section class="grafico-box">
+    <section class="grafico">
 
         <h2>Reservas dos Últimos 6 Meses</h2>
 
@@ -115,7 +111,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
     </section>
 
-    <section class="table-box">
+    <section class="tabela">
 
         <h2>Últimas Reservas</h2>
 
@@ -130,19 +126,17 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             </thead>
 
             <tbody>
-
                 <tr>
                     <td>João Silva</td>
                     <td>Pula-Pula</td>
-                    <td><span class="status-ok">Confirmado</span></td>
+                    <td><span class="ok">Confirmado</span></td>
                 </tr>
 
                 <tr>
                     <td>Maria Souza</td>
                     <td>Tobogã</td>
-                    <td><span class="status-pendente">Pendente</span></td>
+                    <td><span class="pendente">Pendente</span></td>
                 </tr>
-
             </tbody>
 
         </table>
@@ -152,7 +146,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 </div>
 
 <script>
-
 const ctx = document.getElementById('graficoReservas');
 
 new Chart(ctx, {
@@ -161,9 +154,9 @@ new Chart(ctx, {
         labels: ['Jan','Fev','Mar','Abr','Mai','Jun'],
         datasets: [{
             label: 'Reservas',
-            data: [12,19,8,25,17,30],
-            tension: 0.4,
-            borderWidth: 3
+            data: [5, 8, 12, 10, 15, 20],
+            borderWidth: 3,
+            tension: 0.4
         }]
     },
     options: {
@@ -171,31 +164,22 @@ new Chart(ctx, {
         plugins:{
             legend:{
                 labels:{
-                    color:'#fff'
+                    color:'#ffffff'
                 }
             }
         },
         scales:{
             y:{
-                ticks:{
-                    color:'#fff'
-                },
-                grid:{
-                    color:'#1f2937'
-                }
+                ticks:{color:'#ffffff'},
+                grid:{color:'#1f2937'}
             },
             x:{
-                ticks:{
-                    color:'#fff'
-                },
-                grid:{
-                    color:'#1f2937'
-                }
+                ticks:{color:'#ffffff'},
+                grid:{color:'#1f2937'}
             }
         }
     }
 });
-
 </script>
 
 </body>
