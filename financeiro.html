@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Financeiro - Encanto Kids</title>
+
+<link rel="stylesheet" href="css/dashboard.css">
+
+<style>
+
+.financeiro-cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    margin-bottom:30px;
+}
+
+.financeiro-card{
+    background:#111827;
+    border:1px solid #374151;
+    border-radius:15px;
+    padding:25px;
+}
+
+.financeiro-card h3{
+    color:#cbd5e1;
+    margin-bottom:10px;
+}
+
+.financeiro-card h2{
+    color:#ff7b00;
+    font-size:30px;
+}
+
+.movimentacoes{
+    background:#111827;
+    border:1px solid #374151;
+    border-radius:15px;
+    padding:25px;
+}
+
+.movimentacoes h2{
+    margin-bottom:20px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:15px;
+    text-align:left;
+}
+
+th{
+    color:#ff7b00;
+}
+
+tr{
+    border-bottom:1px solid #374151;
+}
+
+.entrada{
+    color:#10b981;
+    font-weight:bold;
+}
+
+.saida{
+    color:#ef4444;
+    font-weight:bold;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="content">
+
+    <h1>Financeiro</h1>
+
+    <div class="financeiro-cards">
+
+        <div class="financeiro-card">
+            <h3>Entradas</h3>
+            <h2>R$ 5.230,00</h2>
+        </div>
+
+        <div class="financeiro-card">
+            <h3>Saídas</h3>
+            <h2>R$ 1.200,00</h2>
+        </div>
+
+        <div class="financeiro-card">
+            <h3>Lucro</h3>
+            <h2>R$ 4.030,00</h2>
+        </div>
+
+        <div class="financeiro-card">
+            <h3>Reservas Pagas</h3>
+            <h2>35</h2>
+        </div>
+
+    </div>
+
+    <div class="movimentacoes">
+
+        <h2>Últimas Movimentações</h2>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>24/07/2026</td>
+                    <td>Reserva Pula-Pula</td>
+                    <td class="entrada">+ R$ 149,99</td>
+                </tr>
+
+                <tr>
+                    <td>24/07/2026</td>
+                    <td>Combustível</td>
+                    <td class="saida">- R$ 50,00</td>
+                </tr>
+
+                <tr>
+                    <td>23/07/2026</td>
+                    <td>Reserva Tobogã</td>
+                    <td class="entrada">+ R$ 149,99</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>
