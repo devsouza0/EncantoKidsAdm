@@ -177,3 +177,33 @@ gap:15px;
 }
 
 }
+.topo-reservas{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+gap:15px;
+}
+
+.topo-reservas input{
+flex:1;
+padding:12px;
+border:none;
+border-radius:10px;
+background:#1f2937;
+color:white;
+}
+
+.topo-reservas button{
+padding:12px 20px;
+border:none;
+border-radius:10px;
+background:#ff7b00;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+.topo-reservas button:hover{
+opacity:.9;
+}
