@@ -7,180 +7,55 @@
 
 <link rel="stylesheet" href="css/dashboard.css">
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body>
 
 <div class="sidebar">
 
-    <div class="logo">
-        <h2>🎈 Encanto Kids</h2>
-        <p>Painel Administrativo</p>
-    </div>
+    <h2>🎈 Encanto Kids</h2>
+    <p>Painel Administrativo</p>
 
-    <nav>
-
-        <a href="#" class="active">
-            <i class="fas fa-home"></i>
-            <span>Dashboard</span>
-        </a>
-
-        <a href="#">
-            <i class="fas fa-calendar"></i>
-            <span>Reservas</span>
-        </a>
-
-        <a href="#">
-            <i class="fas fa-users"></i>
-            <span>Clientes</span>
-        </a>
-
-        <a href="#">
-            <i class="fas fa-gamepad"></i>
-            <span>Brinquedos</span>
-        </a>
-
-        <a href="#">
-            <i class="fas fa-dollar-sign"></i>
-            <span>Financeiro</span>
-        </a>
-
-        <a href="#">
-            <i class="fas fa-chart-line"></i>
-            <span>Relatórios</span>
-        </a>
-
-        <a href="#">
-            <i class="fas fa-cog"></i>
-            <span>Configurações</span>
-        </a>
-
-    </nav>
+    <ul>
+        <li><i class="fas fa-home"></i> Dashboard</li>
+        <li><i class="fas fa-calendar"></i> Reservas</li>
+        <li><i class="fas fa-users"></i> Clientes</li>
+        <li><i class="fas fa-gamepad"></i> Brinquedos</li>
+        <li><i class="fas fa-dollar-sign"></i> Financeiro</li>
+    </ul>
 
 </div>
 
-<div class="main">
+<div class="content">
 
-    <header>
+    <h1>Dashboard</h1>
 
-        <div>
-            <h1>Dashboard</h1>
-            <p>Bem-vindo ao sistema Encanto Kids</p>
-        </div>
-
-        <div class="admin">
-            <i class="fas fa-user-circle"></i>
-            Administrador
-        </div>
-
-    </header>
-
-    <section class="cards">
+    <div class="cards">
 
         <div class="card">
             <h3>Reservas Hoje</h3>
-            <h2>0</h2>
+            <p>0</p>
         </div>
 
         <div class="card">
             <h3>Clientes</h3>
-            <h2>0</h2>
+            <p>0</p>
         </div>
 
         <div class="card">
             <h3>Brinquedos</h3>
-            <h2>0</h2>
+            <p>0</p>
         </div>
 
         <div class="card">
             <h3>Faturamento</h3>
-            <h2>R$ 0,00</h2>
+            <p>R$ 0,00</p>
         </div>
 
-    </section>
-
-    <section class="grafico">
-
-        <h2>Reservas dos Últimos 6 Meses</h2>
-
-        <canvas id="graficoReservas"></canvas>
-
-    </section>
-
-    <section class="tabela">
-
-        <h2>Últimas Reservas</h2>
-
-        <table>
-
-            <thead>
-                <tr>
-                    <th>Cliente</th>
-                    <th>Brinquedo</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>João Silva</td>
-                    <td>Pula-Pula</td>
-                    <td><span class="ok">Confirmado</span></td>
-                </tr>
-
-                <tr>
-                    <td>Maria Souza</td>
-                    <td>Tobogã</td>
-                    <td><span class="pendente">Pendente</span></td>
-                </tr>
-            </tbody>
-
-        </table>
-
-    </section>
+    </div>
 
 </div>
-
-<script>
-const ctx = document.getElementById('graficoReservas');
-
-new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: ['Jan','Fev','Mar','Abr','Mai','Jun'],
-        datasets: [{
-            label: 'Reservas',
-            data: [5, 8, 12, 10, 15, 20],
-            borderWidth: 3,
-            tension: 0.4
-        }]
-    },
-    options: {
-        responsive:true,
-        plugins:{
-            legend:{
-                labels:{
-                    color:'#ffffff'
-                }
-            }
-        },
-        scales:{
-            y:{
-                ticks:{color:'#ffffff'},
-                grid:{color:'#1f2937'}
-            },
-            x:{
-                ticks:{color:'#ffffff'},
-                grid:{color:'#1f2937'}
-            }
-        }
-    }
-});
-</script>
 
 </body>
 </html>
