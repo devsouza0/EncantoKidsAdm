@@ -14,57 +14,93 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 <body>
 
-<div class="content">
+<div class="sidebar">
 
-<h1>Reservas</h1>
+    <div class="logo">
+        <i class="fa-solid fa-balloon"></i>
+        <div>
+            <h2>Encanto Kids</h2>
+            <p>Painel Administrativo</p>
+        </div>
+    </div>
 
-<div class="topo-reservas">
+    <div class="menu">
 
-<input type="text" placeholder="Pesquisar cliente...">
+        <a href="dashboard.html">
+            <i class="fas fa-house"></i>
+            <span>Dashboard</span>
+        </a>
 
-<a href="nova-reserva.html">
-    <button>+ Nova Reserva</button>
-</a>
+        <a href="reservas.html" class="active">
+            <i class="fas fa-calendar-days"></i>
+            <span>Reservas</span>
+        </a>
+
+        <a href="clientes.html">
+            <i class="fas fa-users"></i>
+            <span>Clientes</span>
+        </a>
+
+        <a href="brinquedos.html">
+            <i class="fas fa-futbol"></i>
+            <span>Brinquedos</span>
+        </a>
+
+        <a href="financeiro.html">
+            <i class="fas fa-money-bill-wave"></i>
+            <span>Financeiro</span>
+        </a>
+
+    </div>
 
 </div>
 
-<div class="tabela">
+<div class="content">
 
-<table>
+    <header>
+        <div>
+            <h1>Reservas</h1>
+            <p>Gerencie todas as reservas da Encanto Kids</p>
+        </div>
+    </header>
 
-<thead>
+    <div class="topo-reservas">
+
+        <input type="text" placeholder="Pesquisar cliente...">
+
+        <a href="nova-reserva.html">
+            <button>+ Nova Reserva</button>
+        </a>
+
+    </div>
+
+    <section class="table-box">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Cliente</th>
+                    <th>Brinquedo</th>
+                    <th>Data</th>
+                    <th>Valor</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+          <tbody>
+
 <tr>
-<th>Cliente</th>
-<th>Brinquedo</th>
-<th>Data</th>
-<th>Valor</th>
-<th>Status</th>
-</tr>
-</thead>
-
-<tbody>
-
-<tr>
-<td>João Silva</td>
-<td>Pula-Pula</td>
-<td>25/07/2026</td>
-<td>R$ 149,99</td>
-<td><span class="status-ok">Confirmado</span></td>
-</tr>
-
-<tr>
-<td>Maria Souza</td>
-<td>Tobogã</td>
-<td>28/07/2026</td>
-<td>R$ 149,99</td>
-<td><span class="status-pendente">Pendente</span></td>
+<td colspan="5" style="text-align:center; padding:30px;">
+Nenhuma reserva cadastrada.
+</td>
 </tr>
 
 </tbody>
 
-</table>
+        </table>
 
-</div>
+    </section>
 
 </div>
 
