@@ -8,105 +8,251 @@
 
 <link rel="stylesheet" href="css/dashboard.css">
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-</head>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<style>
+
+.btn-voltar{
+    display:inline-block;
+    margin-bottom:20px;
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.topo-reservas{
+    margin-bottom:20px;
+}
+
+.topo-reservas input{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#1f2937;
+    color:white;
+}
+
+.tabela{
+    background:#111827;
+    border:1px solid #374151;
+    border-radius:15px;
+    padding:20px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    color:#ff7b00;
+}
+
+th,td{
+    padding:12px;
+    border-bottom:1px solid #374151;
+    text-align:left;
+}
+
+.formulario{
+    margin-top:30px;
+    background:#111827;
+    border:1px solid #374151;
+    border-radius:15px;
+    padding:25px;
+}
+
+.formulario h2{
+    margin-bottom:20px;
+}
+
+.formulario label{
+    display:block;
+    margin-top:15px;
+    margin-bottom:5px;
+}
+
+.formulario input,
+.formulario select{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#1f2937;
+    color:white;
+}
+
+.btn-salvar{
+    width:100%;
+    margin-top:20px;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:#ff7b00;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+</style>
+
+</head>
 <body>
 
 <div class="content">
 
-    <a href="javascript:history.back()" class="btn-voltar">
-        ← Voltar
-    </a>
+<a href="dashboard.html" class="btn-voltar">
+← Voltar
+</a>
 
-    <div class="logo">
-        <i class="fa-solid fa-balloon"></i>
-        <div>
-            <h2>Encanto Kids</h2>
-            <p>Painel Administrativo</p>
-        </div>
-    </div>
+<h1>Reservas</h1>
 
-    <div class="menu">
-
-        <a href="dashboard.html">
-            <i class="fas fa-house"></i>
-            <span>Dashboard</span>
-        </a>
-
-        <a href="reservas.html" class="active">
-            <i class="fas fa-calendar-days"></i>
-            <span>Reservas</span>
-        </a>
-
-        <a href="clientes.html">
-            <i class="fas fa-users"></i>
-            <span>Clientes</span>
-        </a>
-
-        <a href="brinquedos.html">
-            <i class="fas fa-futbol"></i>
-            <span>Brinquedos</span>
-        </a>
-
-        <a href="financeiro.html">
-            <i class="fas fa-money-bill-wave"></i>
-            <span>Financeiro</span>
-        </a>
-
-    </div>
-
+<div class="topo-reservas">
+<input type="text" placeholder="Pesquisar reserva...">
 </div>
 
-<div class="content">
+<div class="tabela">
 
-    <header>
-        <div>
-            <h1>Reservas</h1>
-            <p>Gerencie todas as reservas da Encanto Kids</p>
-        </div>
-    </header>
+<table>
 
-    <div class="topo-reservas">
-
-        <input type="text" placeholder="Pesquisar cliente...">
-
-        <a href="nova-reserva.html">
-            <button>+ Nova Reserva</button>
-        </a>
-
-    </div>
-
-    <section class="table-box">
-
-        <table>
-
-            <thead>
-                <tr>
-                    <th>Cliente</th>
-                    <th>Brinquedo</th>
-                    <th>Data</th>
-                    <th>Valor</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-
-          <tbody>
-
+<thead>
 <tr>
-<td colspan="5" style="text-align:center; padding:30px;">
-Nenhuma reserva cadastrada.
-</td>
+<th>Cliente</th>
+<th>Brinquedo</th>
+<th>Data</th>
+<th>Valor</th>
+<th>Status</th>
 </tr>
+</thead>
+
+<tbody id="listaReservas">
 
 </tbody>
 
-        </table>
-
-    </section>
+</table>
 
 </div>
+
+<div class="formulario">
+
+<h2>Nova Reserva</h2>
+
+<label>Cliente</label>
+<input type="text" id="cliente">
+
+<label>Brinquedo</label>
+<input type="text" id="brinquedo">
+
+<label>Data do Evento</label>
+<input type="date" id="data_evento">
+
+<label>Valor</label>
+<input type="number" id="valor">
+
+<label>Status</label>
+<select id="status">
+<option>Pendente</option>
+<option>Confirmado</option>
+<option>Finalizado</option>
+</select>
+
+<button class="btn-salvar" onclick="salvarReserva()">
+Salvar Reserva
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+const supabaseUrl = "https://stnjpquafragqjwxyjza.supabase.co";
+
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN0bmpwcXVhZnJhZ3Fqd3h5anphIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5MzI2MzAsImV4cCI6MjEwMDUwODYzMH0.r3YlozqWb2h96TLomC-VOfeQNLknio8x5xaiNVlQOkE";
+
+const supabaseClient = window.supabase.createClient(
+    supabaseUrl,
+    supabaseKey
+);
+
+async function carregarReservas(){
+
+    const { data, error } = await supabaseClient
+        .from("reservas")
+        .select("*")
+        .order("id", { ascending:false });
+
+    if(error){
+        console.log(error);
+        return;
+    }
+
+    const tabela = document.getElementById("listaReservas");
+
+    tabela.innerHTML = "";
+
+    data.forEach(reserva => {
+
+        tabela.innerHTML += `
+        <tr>
+            <td>${reserva.cliente || ""}</td>
+            <td>${reserva.brinquedo || ""}</td>
+            <td>${reserva.data_evento || ""}</td>
+            <td>R$ ${reserva.valor || "0,00"}</td>
+            <td>${reserva.status || ""}</td>
+        </tr>
+        `;
+
+    });
+
+}
+
+async function salvarReserva(){
+
+    const cliente = document.getElementById("cliente").value;
+    const brinquedo = document.getElementById("brinquedo").value;
+    const data_evento = document.getElementById("data_evento").value;
+    const valor = document.getElementById("valor").value;
+    const status = document.getElementById("status").value;
+
+    if(cliente === ""){
+        alert("Digite o nome do cliente.");
+        return;
+    }
+
+    const { error } = await supabaseClient
+        .from("reservas")
+        .insert([
+            {
+                cliente,
+                brinquedo,
+                data_evento,
+                valor,
+                status
+            }
+        ]);
+
+    if(error){
+        console.log(error);
+        alert("Erro ao salvar reserva.");
+        return;
+    }
+
+    alert("Reserva cadastrada com sucesso!");
+
+    document.getElementById("cliente").value = "";
+    document.getElementById("brinquedo").value = "";
+    document.getElementById("data_evento").value = "";
+    document.getElementById("valor").value = "";
+
+    carregarReservas();
+
+}
+
+carregarReservas();
+
+</script>
 
 </body>
 </html>
