@@ -293,3 +293,17 @@ textarea{
     cursor:pointer;
     font-weight:bold;
 }
+.btn-voltar{
+    display:inline-block;
+    margin-bottom:20px;
+    padding:10px 15px;
+    background:#1f2937;
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
+    transition:.3s;
+}
+
+.btn-voltar:hover{
+    background:#ff7b00;
+}
