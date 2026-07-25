@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Novo Brinquedo - Encanto Kids</title>
+
+<link rel="stylesheet" href="css/dashboard.css">
+
+<style>
+
+.form-box{
+    background:#111827;
+    border:1px solid #374151;
+    border-radius:15px;
+    padding:30px;
+    max-width:800px;
+}
+
+.form-box h2{
+    margin-bottom:25px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    margin-bottom:20px;
+}
+
+.form-group label{
+    margin-bottom:8px;
+    font-weight:bold;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#1f2937;
+    color:white;
+}
+
+.form-group textarea{
+    min-height:120px;
+    resize:vertical;
+}
+
+.btn-salvar{
+    background:#ff7b00;
+    color:white;
+    border:none;
+    padding:14px 25px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+    font-size:16px;
+}
+
+.btn-voltar{
+    display:inline-block;
+    margin-bottom:20px;
+    text-decoration:none;
+    color:white;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="content">
+
+    <a href="brinquedos.html" class="btn-voltar">
+        ← Voltar para Brinquedos
+    </a>
+
+    <div class="form-box">
+
+        <h2>Cadastrar Novo Brinquedo</h2>
+
+        <form>
+
+            <div class="form-group">
+                <label>Nome do Brinquedo</label>
+                <input type="text" placeholder="Ex: Tobogã Inflável">
+            </div>
+
+            <div class="form-group">
+                <label>Descrição</label>
+                <textarea placeholder="Descrição do brinquedo"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Valor da Locação</label>
+                <input type="number" placeholder="149.99">
+            </div>
+
+            <div class="form-group">
+                <label>Categoria</label>
+                <select>
+                    <option>Pula-Pula</option>
+                    <option>Tobogã</option>
+                    <option>Castelo Inflável</option>
+                    <option>Piscina de Bolinhas</option>
+                    <option>Outro</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Imagem do Brinquedo</label>
+                <input type="file">
+            </div>
+
+            <button type="submit" class="btn-salvar">
+                Salvar Brinquedo
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>
