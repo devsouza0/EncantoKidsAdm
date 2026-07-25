@@ -23,7 +23,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 }
 
 .topo-clientes input{
-    width:300px;
+    width:100%;
     padding:12px;
     border:none;
     border-radius:10px;
@@ -59,14 +59,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 }
 
 .btn-salvar{
+    width:100%;
     margin-top:20px;
     background:#ff7b00;
     color:white;
     border:none;
-    padding:12px 20px;
+    padding:14px;
     border-radius:10px;
     cursor:pointer;
     font-weight:bold;
+    font-size:16px;
 }
 
 .btn-voltar{
@@ -74,6 +76,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     margin-bottom:20px;
     color:white;
     text-decoration:none;
+    font-weight:bold;
 }
 
 table{
@@ -81,9 +84,14 @@ table{
     border-collapse:collapse;
 }
 
+th{
+    color:#ff7b00;
+}
+
 th,td{
     padding:12px;
     text-align:left;
+    border-bottom:1px solid #374151;
 }
 
 </style>
@@ -93,16 +101,14 @@ th,td{
 
 <div class="content">
 
-    <a href="javascript:history.back()" class="btn-voltar">
+    <a href="dashboard.html" class="btn-voltar">
         ← Voltar
     </a>
 
     <h1>Clientes</h1>
 
     <div class="topo-clientes">
-
         <input type="text" placeholder="Pesquisar cliente...">
-
     </div>
 
     <div class="tabela">
@@ -119,7 +125,6 @@ th,td{
             </thead>
 
             <tbody id="listaClientes">
-
             </tbody>
 
         </table>
@@ -142,7 +147,10 @@ th,td{
         <label>Endereço</label>
         <input type="text" id="endereco">
 
-<button type="button" class="btn-salvar" onclick="salvarCliente()">            Salvar Cliente
+        <button type="button"
+        class="btn-salvar"
+        onclick="salvarCliente()">
+            Salvar Cliente
         </button>
 
     </div>
@@ -153,26 +161,26 @@ th,td{
 
 const supabaseUrl = "https://stnjpquafragqjwxyjza.supabase.co";
 
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN0bmpwcXVhZnJhZ3Fqd3h5anphIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5MzI2MzAsImV4cCI6MjEwMDUwODYzMH0.r3YlozqWb2h96TLomC-VOfeQNLknio8x5xaiNVlQOkE";
+const supabaseKey = "sb_publishable__-eRb6al88vZ84SHd7eiYg_at8gkquw";
 
-const supabase = window.supabase.createClient(
+const supabaseClient = window.supabase.createClient(
     supabaseUrl,
     supabaseKey
 );
 
 async function carregarClientes(){
 
-    const { data, error } = await supabase
-    .from("clientes")
-    .select("*")
-    .order("id",{ascending:false});
+    const { data, error } = await supabaseClient
+        .from("clientes")
+        .select("*")
+        .order("id", { ascending:false });
 
     if(error){
         console.log(error);
         return;
     }
 
-    let tabela = document.getElementById("listaClientes");
+    const tabela = document.getElementById("listaClientes");
 
     tabela.innerHTML = "";
 
@@ -198,21 +206,21 @@ async function salvarCliente(){
     const cidade = document.getElementById("cidade").value;
     const endereco = document.getElementById("endereco").value;
 
-    if(!nome){
+    if(nome === ""){
         alert("Digite o nome do cliente.");
         return;
     }
 
-    const { error } = await supabase
-    .from("clientes")
-    .insert([
-        {
-            nome,
-            telefone,
-            cidade,
-            endereco
-        }
-    ]);
+    const { error } = await supabaseClient
+        .from("clientes")
+        .insert([
+            {
+                nome:nome,
+                telefone:telefone,
+                cidade:cidade,
+                endereco:endereco
+            }
+        ]);
 
     if(error){
         console.log(error);
