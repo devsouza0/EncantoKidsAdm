@@ -222,11 +222,11 @@ async function salvarCliente(){
             }
         ]);
 
-    if(error){
-        console.log(error);
-        alert("Erro ao salvar cliente.");
-        return;
-    }
+ if(error){
+    console.log(error);
+    alert(error.message);
+    return;
+}
 
     alert("Cliente cadastrado com sucesso!");
 
