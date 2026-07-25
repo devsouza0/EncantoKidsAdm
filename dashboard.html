@@ -11,6 +11,8 @@
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 </head>
 <body>
 
@@ -26,44 +28,40 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
     <div class="menu">
 
-        <div class="menu">
+        <a href="dashboard.html" class="active">
+            <i class="fas fa-house"></i>
+            <span>Dashboard</span>
+        </a>
 
-    <a href="dashboard.html" class="active">
-        <i class="fas fa-house"></i>
-        <span>Dashboard</span>
-    </a>
+        <a href="reservas.html">
+            <i class="fas fa-calendar-days"></i>
+            <span>Reservas</span>
+        </a>
 
-    <a href="reservas.html">
-        <i class="fas fa-calendar-days"></i>
-        <span>Reservas</span>
-    </a>
+        <a href="clientes.html">
+            <i class="fas fa-users"></i>
+            <span>Clientes</span>
+        </a>
 
-    <a href="clientes.html">
-        <i class="fas fa-users"></i>
-        <span>Clientes</span>
-    </a>
+        <a href="brinquedos.html">
+            <i class="fas fa-futbol"></i>
+            <span>Brinquedos</span>
+        </a>
 
-    <a href="brinquedos.html">
-        <i class="fas fa-futbol"></i>
-        <span>Brinquedos</span>
-    </a>
+        <a href="financeiro.html">
+            <i class="fas fa-money-bill-wave"></i>
+            <span>Financeiro</span>
+        </a>
 
-    <a href="financeiro.html">
-        <i class="fas fa-money-bill-wave"></i>
-        <span>Financeiro</span>
-    </a>
+        <a href="#">
+            <i class="fas fa-chart-line"></i>
+            <span>Relatórios</span>
+        </a>
 
-    <a href="#">
-        <i class="fas fa-chart-line"></i>
-        <span>Relatórios</span>
-    </a>
-
-    <a href="#">
-        <i class="fas fa-gear"></i>
-        <span>Configurações</span>
-    </a>
-
-</div>
+        <a href="#">
+            <i class="fas fa-gear"></i>
+            <span>Configurações</span>
+        </a>
 
     </div>
 
@@ -88,23 +86,23 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     <section class="cards">
 
         <div class="card">
-            <h3>Reservas Hoje</h3>
-            <h2>0</h2>
+            <h3>Reservas</h3>
+            <h2 id="totalReservas">0</h2>
         </div>
 
         <div class="card">
             <h3>Clientes</h3>
-            <h2>0</h2>
+            <h2 id="totalClientes">0</h2>
         </div>
 
         <div class="card">
             <h3>Brinquedos</h3>
-            <h2>0</h2>
+            <h2>3</h2>
         </div>
 
         <div class="card">
             <h3>Faturamento</h3>
-            <h2>R$ 0.00</h2>
+            <h2 id="faturamento">R$ 0,00</h2>
         </div>
 
     </section>
@@ -123,19 +121,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                 </tr>
             </thead>
 
-            <tbody>
-
-                <tr>
-                    <td>João Silva</td>
-                    <td>Pula-Pula</td>
-                    <td><span class="status-ok">Confirmado</span></td>
-                </tr>
-
-                <tr>
-                    <td>Maria Souza</td>
-                    <td>Tobogã</td>
-                    <td><span class="status-pendente">Pendente</span></td>
-                </tr>
+            <tbody id="ultimasReservas">
 
             </tbody>
 
@@ -144,6 +130,90 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     </section>
 
 </div>
+
+<script>
+
+const supabaseUrl = "https://stnjpquafragqjwxyjza.supabase.co";
+
+const supabaseKey = "SUA_CHAVE_ANON";
+
+const supabaseClient = window.supabase.createClient(
+    supabaseUrl,
+    supabaseKey
+);
+
+async function carregarDashboard(){
+
+    // CLIENTES
+    const { count: totalClientes } = await supabaseClient
+        .from("clientes")
+        .select("*",{count:"exact",head:true});
+
+    document.getElementById("totalClientes").innerText =
+        totalClientes || 0;
+
+    // RESERVAS
+    const { count: totalReservas } = await supabaseClient
+        .from("reservas")
+        .select("*",{count:"exact",head:true});
+
+    document.getElementById("totalReservas").innerText =
+        totalReservas || 0;
+
+    // FATURAMENTO
+    const { data: reservas } = await supabaseClient
+        .from("reservas")
+        .select("valor");
+
+    let total = 0;
+
+    reservas?.forEach(item => {
+        total += Number(item.valor || 0);
+    });
+
+    document.getElementById("faturamento").innerText =
+        total.toLocaleString("pt-BR",{
+            style:"currency",
+            currency:"BRL"
+        });
+
+    // ÚLTIMAS RESERVAS
+    const { data: ultimas } = await supabaseClient
+        .from("reservas")
+        .select("*")
+        .order("id",{ascending:false})
+        .limit(5);
+
+    const tabela =
+        document.getElementById("ultimasReservas");
+
+    tabela.innerHTML = "";
+
+    ultimas?.forEach(reserva => {
+
+        let classe =
+            reserva.status === "Confirmado"
+            ? "status-ok"
+            : "status-pendente";
+
+        tabela.innerHTML += `
+        <tr>
+            <td>${reserva.cliente}</td>
+            <td>${reserva.brinquedo}</td>
+            <td>
+                <span class="${classe}">
+                    ${reserva.status}
+                </span>
+            </td>
+        </tr>
+        `;
+    });
+
+}
+
+carregarDashboard();
+
+</script>
 
 </body>
 </html>
