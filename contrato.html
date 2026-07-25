@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Contrato - Encanto Kids</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+
+body{
+    font-family:Arial,sans-serif;
+    background:#0f172a;
+    color:white;
+    padding:30px;
+}
+
+.container{
+    max-width:800px;
+    margin:auto;
+    background:#111827;
+    padding:30px;
+    border-radius:15px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin-top:5px;
+    margin-bottom:15px;
+    border:none;
+    border-radius:8px;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    background:#ff7b00;
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h1>Gerador de Contrato</h1>
+
+<label>Nome do Cliente</label>
+<input type="text" id="cliente">
+
+<label>Telefone</label>
+<input type="text" id="telefone">
+
+<label>Endereço</label>
+<input type="text" id="endereco">
+
+<label>Brinquedo</label>
+<input type="text" id="brinquedo">
+
+<label>Data do Evento</label>
+<input type="date" id="dataEvento">
+
+<label>Valor</label>
+<input type="number" id="valor">
+
+<button onclick="gerarPDF()">
+Gerar Contrato PDF
+</button>
+
+</div>
+
+<script>
+
+async function gerarPDF(){
+
+    const { jsPDF } = window.jspdf;
+
+    const doc = new jsPDF();
+
+    const cliente =
+    document.getElementById("cliente").value;
+
+    const telefone =
+    document.getElementById("telefone").value;
+
+    const endereco =
+    document.getElementById("endereco").value;
+
+    const brinquedo =
+    document.getElementById("brinquedo").value;
+
+    const dataEvento =
+    document.getElementById("dataEvento").value;
+
+    const valor =
+    document.getElementById("valor").value;
+
+    doc.setFontSize(18);
+    doc.text("CONTRATO DE LOCAÇÃO", 20, 20);
+
+    doc.setFontSize(12);
+
+    doc.text(
+        `Cliente: ${cliente}`,
+        20,
+        40
+    );
+
+    doc.text(
+        `Telefone: ${telefone}`,
+        20,
+        50
+    );
+
+    doc.text(
+        `Endereço: ${endereco}`,
+        20,
+        60
+    );
+
+    doc.text(
+        `Brinquedo: ${brinquedo}`,
+        20,
+        70
+    );
+
+    doc.text(
+        `Data do Evento: ${dataEvento}`,
+        20,
+        80
+    );
+
+    doc.text(
+        `Valor da Locação: R$ ${valor}`,
+        20,
+        90
+    );
+
+    doc.text(
+        "A Encanto Kids Infláveis compromete-se a fornecer o brinquedo em perfeitas condições para utilização no evento contratado.",
+        20,
+        110,
+        { maxWidth: 170 }
+    );
+
+    doc.text(
+        "O cliente declara estar ciente das condições de uso e responsabilidade durante o período da locação.",
+        20,
+        140,
+        { maxWidth: 170 }
+    );
+
+    doc.text(
+        "________________________________",
+        20,
+        220
+    );
+
+    doc.text(
+        "Assinatura do Cliente",
+        20,
+        230
+    );
+
+    doc.save(
+        `Contrato-${cliente}.pdf`
+    );
+
+}
+
+</script>
+
+</body>
+</html>
