@@ -25,10 +25,34 @@ body{
     border-radius:15px;
 }
 
+.btn-voltar{
+    display:inline-block;
+    margin-bottom:20px;
+    padding:12px 20px;
+    background:#ff7b00;
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+.btn-voltar:hover{
+    opacity:0.9;
+}
+
+h1{
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+    margin-top:10px;
+    margin-bottom:5px;
+}
+
 input{
     width:100%;
     padding:12px;
-    margin-top:5px;
     margin-bottom:15px;
     border:none;
     border-radius:8px;
@@ -43,6 +67,11 @@ button{
     border-radius:10px;
     font-size:16px;
     cursor:pointer;
+    font-weight:bold;
+}
+
+button:hover{
+    opacity:0.9;
 }
 
 </style>
@@ -51,6 +80,10 @@ button{
 <body>
 
 <div class="container">
+
+<a href="javascript:history.back()" class="btn-voltar">
+← Voltar
+</a>
 
 <h1>Gerador de Contrato</h1>
 
@@ -79,6 +112,23 @@ Gerar Contrato PDF
 </div>
 
 <script>
+
+// Preenche automaticamente os dados vindos da reserva
+window.onload = function(){
+
+    document.getElementById("cliente").value =
+    localStorage.getItem("clienteContrato") || "";
+
+    document.getElementById("brinquedo").value =
+    localStorage.getItem("brinquedoContrato") || "";
+
+    document.getElementById("dataEvento").value =
+    localStorage.getItem("dataContrato") || "";
+
+    document.getElementById("valor").value =
+    localStorage.getItem("valorContrato") || "";
+
+}
 
 async function gerarPDF(){
 
@@ -109,41 +159,12 @@ async function gerarPDF(){
 
     doc.setFontSize(12);
 
-    doc.text(
-        `Cliente: ${cliente}`,
-        20,
-        40
-    );
-
-    doc.text(
-        `Telefone: ${telefone}`,
-        20,
-        50
-    );
-
-    doc.text(
-        `Endereço: ${endereco}`,
-        20,
-        60
-    );
-
-    doc.text(
-        `Brinquedo: ${brinquedo}`,
-        20,
-        70
-    );
-
-    doc.text(
-        `Data do Evento: ${dataEvento}`,
-        20,
-        80
-    );
-
-    doc.text(
-        `Valor da Locação: R$ ${valor}`,
-        20,
-        90
-    );
+    doc.text(`Cliente: ${cliente}`, 20, 40);
+    doc.text(`Telefone: ${telefone}`, 20, 50);
+    doc.text(`Endereço: ${endereco}`, 20, 60);
+    doc.text(`Brinquedo: ${brinquedo}`, 20, 70);
+    doc.text(`Data do Evento: ${dataEvento}`, 20, 80);
+    doc.text(`Valor da Locação: R$ ${valor}`, 20, 90);
 
     doc.text(
         "A Encanto Kids Infláveis compromete-se a fornecer o brinquedo em perfeitas condições para utilização no evento contratado.",
@@ -159,21 +180,10 @@ async function gerarPDF(){
         { maxWidth: 170 }
     );
 
-    doc.text(
-        "________________________________",
-        20,
-        220
-    );
+    doc.text("________________________________", 20, 220);
+    doc.text("Assinatura do Cliente", 20, 230);
 
-    doc.text(
-        "Assinatura do Cliente",
-        20,
-        230
-    );
-
-    doc.save(
-        `Contrato-${cliente}.pdf`
-    );
+    doc.save(`Contrato-${cliente}.pdf`);
 
 }
 
