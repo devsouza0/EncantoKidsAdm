@@ -10,19 +10,85 @@
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-</head>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-const supabaseUrl = "https://stnjpquafragqjwxyjza.supabase.co";
-const supabaseKey = "SUA_ANON_KEY_AQUI";
 
-const supabase = window.supabase.createClient(
-    supabaseUrl,
-    supabaseKey
-);
+<style>
 
-console.log("Supabase conectado!");
-</script>
+.topo-clientes{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.topo-clientes input{
+    width:300px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#1f2937;
+    color:white;
+}
+
+.formulario{
+    margin-top:30px;
+    background:#111827;
+    padding:25px;
+    border-radius:15px;
+    border:1px solid #374151;
+}
+
+.formulario h2{
+    margin-bottom:20px;
+}
+
+.formulario label{
+    display:block;
+    margin-top:15px;
+    margin-bottom:5px;
+}
+
+.formulario input{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#1f2937;
+    color:white;
+}
+
+.btn-salvar{
+    margin-top:20px;
+    background:#ff7b00;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.btn-voltar{
+    display:inline-block;
+    margin-bottom:20px;
+    color:white;
+    text-decoration:none;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:12px;
+    text-align:left;
+}
+
+</style>
+
+</head>
 <body>
 
 <div class="content">
@@ -36,8 +102,6 @@ console.log("Supabase conectado!");
     <div class="topo-clientes">
 
         <input type="text" placeholder="Pesquisar cliente...">
-
-        <button>+ Novo Cliente</button>
 
     </div>
 
@@ -54,21 +118,7 @@ console.log("Supabase conectado!");
                 </tr>
             </thead>
 
-            <tbody>
-
-                <tr>
-                    <td>João Silva</td>
-                    <td>(16) 99999-9999</td>
-                    <td>Casa Branca</td>
-                    <td>Rua Exemplo, 123</td>
-                </tr>
-
-                <tr>
-                    <td>Maria Souza</td>
-                    <td>(16) 98888-8888</td>
-                    <td>Casa Branca</td>
-                    <td>Av. Central, 500</td>
-                </tr>
+            <tbody id="listaClientes">
 
             </tbody>
 
@@ -81,25 +131,110 @@ console.log("Supabase conectado!");
         <h2>Cadastrar Cliente</h2>
 
         <label>Nome Completo</label>
-        <input type="text">
+        <input type="text" id="nome">
 
         <label>Telefone</label>
-        <input type="text">
+        <input type="text" id="telefone">
 
         <label>Cidade</label>
-        <input type="text">
+        <input type="text" id="cidade">
 
         <label>Endereço</label>
-        <input type="text">
+        <input type="text" id="endereco">
 
-        <label>Observações</label>
-        <textarea></textarea>
-
-        <button>Salvar Cliente</button>
+        <button class="btn-salvar" onclick="salvarCliente()">
+            Salvar Cliente
+        </button>
 
     </div>
 
 </div>
+
+<script>
+
+const supabaseUrl = "https://stnjpquafragqjwxyjza.supabase.co";
+
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN0bmpwcXVhZnJhZ3Fqd3h5anphIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5MzI2MzAsImV4cCI6MjEwMDUwODYzMH0.r3YlozqWb2h96TLomC-VOfeQNLknio8x5xaiNVlQOkE";
+
+const supabase = window.supabase.createClient(
+    supabaseUrl,
+    supabaseKey
+);
+
+async function carregarClientes(){
+
+    const { data, error } = await supabase
+    .from("clientes")
+    .select("*")
+    .order("id",{ascending:false});
+
+    if(error){
+        console.log(error);
+        return;
+    }
+
+    let tabela = document.getElementById("listaClientes");
+
+    tabela.innerHTML = "";
+
+    data.forEach(cliente => {
+
+        tabela.innerHTML += `
+            <tr>
+                <td>${cliente.nome || ""}</td>
+                <td>${cliente.telefone || ""}</td>
+                <td>${cliente.cidade || ""}</td>
+                <td>${cliente.endereco || ""}</td>
+            </tr>
+        `;
+
+    });
+
+}
+
+async function salvarCliente(){
+
+    const nome = document.getElementById("nome").value;
+    const telefone = document.getElementById("telefone").value;
+    const cidade = document.getElementById("cidade").value;
+    const endereco = document.getElementById("endereco").value;
+
+    if(!nome){
+        alert("Digite o nome do cliente.");
+        return;
+    }
+
+    const { error } = await supabase
+    .from("clientes")
+    .insert([
+        {
+            nome,
+            telefone,
+            cidade,
+            endereco
+        }
+    ]);
+
+    if(error){
+        console.log(error);
+        alert("Erro ao salvar cliente.");
+        return;
+    }
+
+    alert("Cliente cadastrado com sucesso!");
+
+    document.getElementById("nome").value = "";
+    document.getElementById("telefone").value = "";
+    document.getElementById("cidade").value = "";
+    document.getElementById("endereco").value = "";
+
+    carregarClientes();
+
+}
+
+carregarClientes();
+
+</script>
 
 </body>
 </html>
