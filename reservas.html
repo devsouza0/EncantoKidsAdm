@@ -95,6 +95,16 @@ th,td{
     cursor:pointer;
 }
 
+.btn-contrato{
+    background:#ff7b00;
+    color:white;
+    border:none;
+    padding:8px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
 </style>
 
 </head>
@@ -123,6 +133,7 @@ th,td{
 <th>Data</th>
 <th>Valor</th>
 <th>Status</th>
+<th>Ações</th>
 </tr>
 </thead>
 
@@ -201,6 +212,19 @@ async function carregarReservas(){
             <td>${reserva.data_evento || ""}</td>
             <td>R$ ${reserva.valor || "0,00"}</td>
             <td>${reserva.status || ""}</td>
+
+            <td>
+                <button
+                    class="btn-contrato"
+                    onclick="abrirContrato(
+                        '${reserva.cliente}',
+                        '${reserva.brinquedo}',
+                        '${reserva.data_evento}',
+                        '${reserva.valor}'
+                    )">
+                    📄 Contrato
+                </button>
+            </td>
         </tr>
         `;
 
@@ -247,6 +271,17 @@ async function salvarReserva(){
     document.getElementById("valor").value = "";
 
     carregarReservas();
+
+}
+
+function abrirContrato(cliente, brinquedo, data, valor){
+
+    localStorage.setItem("clienteContrato", cliente);
+    localStorage.setItem("brinquedoContrato", brinquedo);
+    localStorage.setItem("dataContrato", data);
+    localStorage.setItem("valorContrato", valor);
+
+    window.location.href = "contrato.html";
 
 }
 
