@@ -10,6 +10,23 @@
 
 <style>
 
+.topo-brinquedos{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.topo-brinquedos button{
+    background:#ff7b00;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
 .cards-brinquedos{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
@@ -65,7 +82,15 @@
 
 <div class="content">
 
-    <h1>Brinquedos</h1>
+    <div class="topo-brinquedos">
+
+        <h1>Brinquedos</h1>
+
+        <a href="novo-brinquedo.html">
+            <button>+ Novo Brinquedo</button>
+        </a>
+
+    </div>
 
     <div class="cards-brinquedos">
 
