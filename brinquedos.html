@@ -81,6 +81,27 @@
 </style>
 
 </head>
+<script>
+
+async function carregarBrinquedos(){
+
+    const { data, error } = await supabaseClient
+        .from("brinquedos")
+        .select("*")
+        .order("id",{ascending:false});
+
+    if(error){
+        console.log(error);
+        return;
+    }
+
+    console.log(data);
+
+}
+
+carregarBrinquedos();
+
+</script>    
 <body>
 
     <div class="content">
