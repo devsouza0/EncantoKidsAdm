@@ -1,1 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Calendário</title>
+
+<link rel="stylesheet" href="css/dashboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+
+<style>
+
+.btn-voltar{
+
+display:inline-block;
+margin-bottom:20px;
+
+color:white;
+
+text-decoration:none;
+
+font-weight:bold;
+
+}
+
+.calendario{
+
+display:grid;
+
+grid-template-columns:repeat(7,1fr);
+
+gap:10px;
+
+margin-top:25px;
+
+}
+
+.dia{
+
+background:#111827;
+
+height:100px;
+
+border-radius:12px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:20px;
+
+cursor:pointer;
+
+border:1px solid #374151;
+
+transition:.2s;
+
+}
+
+.dia:hover{
+
+transform:scale(1.04);
+
+}
+
+.ocupado{
+
+background:#dc2626;
+
+}
+
+.livre{
+
+background:#166534;
+
+}
+
+</style>
+
+</head>
+<script>
+
+const calendario = document.getElementById("calendario");
+
+async function carregarCalendario(){
+
+    calendario.innerHTML = "";
+
+    const hoje = new Date();
+
+    const ano = hoje.getFullYear();
+    const mes = hoje.getMonth();
+
+    const diasNoMes = new Date(ano, mes + 1, 0).getDate();
+
+    const { data: reservas, error } = await supabaseClient
+        .from("reservas")
+        .select("cliente, brinquedo, data_evento, status");
+
+    if(error){
+        console.log(error);
+        return;
+    }
+
+    for(let dia = 1; dia <= diasNoMes; dia++){
+
+        const dataAtual =
+            `${ano}-${String(mes+1).padStart(2,"0")}-${String(dia).padStart(2,"0")}`;
+
+        const reservasDia = reservas.filter(r => r.data_evento === dataAtual);
+
+        const div = document.createElement("div");
+
+        div.className = "dia";
+
+        div.innerHTML = `
+            <div style="text-align:center">
+                <strong>${dia}</strong><br>
+                ${reservasDia.length > 0 ? "🔴" : "🟢"}
+            </div>
+        `;
+
+        if(reservasDia.length > 0){
+            div.classList.add("ocupado");
+        }else{
+            div.classList.add("livre");
+        }
+
+        div.onclick = () => mostrarReservas(dataAtual, reservasDia);
+
+        calendario.appendChild(div);
+
+    }
+
+}
+
+function mostrarReservas(data, reservas){
+
+    if(reservas.length === 0){
+
+        alert("Nenhuma reserva para " + data);
+
+        return;
+
+    }
+
+    let texto = "Reservas do dia:\n\n";
+
+    reservas.forEach(r=>{
+
+        texto +=
+`Cliente: ${r.cliente}
+Brinquedo: ${r.brinquedo}
+Status: ${r.status}
+
+`;
+
+    });
+
+    alert(texto);
+
+}
+
+carregarCalendario();
+
+</script>
+
+</div>
+
+</body>
+</html>
+
+<body>
+
+<div class="content">
+
+<a href="dashboard.html" class="btn-voltar">
+
+← Voltar
+
+</a>
+
+<h1>Calendário de Reservas</h1>
+
+<div id="calendario" class="calendario">
+
+</div>
