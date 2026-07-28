@@ -254,26 +254,65 @@ async function carregarCalendario(){
 
 function mostrarReservas(data, reservas){
 
+    const modal = document.getElementById("modalReservas");
+    const conteudo = document.getElementById("conteudoModal");
+    const titulo = document.getElementById("tituloModal");
+
+    titulo.innerHTML = "📅 Reservas - " + data;
+
+    conteudo.innerHTML = "";
+
     if(reservas.length === 0){
 
-        alert("Nenhuma reserva para " + data);
+        conteudo.innerHTML = "<p>Nenhuma reserva encontrada para este dia.</p>";
 
-        return;
+    }else{
+
+        reservas.forEach(r=>{
+
+            conteudo.innerHTML += `
+
+            <div class="cardReserva">
+
+                <h3>👤 ${r.cliente}</h3>
+
+                <p><strong>🎪 Brinquedo:</strong> ${r.brinquedo}</p>
+
+                <p><strong>💰 Valor:</strong> R$ ${r.valor ?? "0,00"}</p>
+
+                <p><strong>📌 Status:</strong> ${r.status}</p>
+
+                <button class="btnContrato"
+                    onclick="abrirContrato('${r.cliente}','${r.brinquedo}','${r.data_evento}','${r.valor}')">
+                    📄 Contrato
+                </button>
+
+                <button class="btnEditar"
+                    onclick="editarReserva(${r.id})">
+                    ✏️ Editar
+                </button>
+
+                <button class="btnExcluir"
+                    onclick="excluirReserva(${r.id})">
+                    🗑️ Excluir
+                </button>
+
+                <button class="btnWhatsapp"
+                    onclick="abrirWhatsapp('${r.telefone || ""}','${r.cliente}')">
+                    📲 WhatsApp
+                </button>
+
+            </div>
+
+            `;
+
+        });
 
     }
 
-    let texto = "Reservas do dia:\n\n";
+    modal.style.display = "flex";
 
-    reservas.forEach(r=>{
-
-        texto +=
-`Cliente: ${r.cliente}
-Brinquedo: ${r.brinquedo}
-Status: ${r.status}
-
-`;
-
-    });
+}
 
     alert(texto);
 
