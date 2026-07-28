@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calendário</title>
+<title>Calendário de Reservas - Encanto Kids</title>
 
 <link rel="stylesheet" href="css/dashboard.css">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase.js"></script>
 
+
 <style>
-    .modal{
+
+.modal{
 
 display:none;
-
 position:fixed;
-
 top:0;
 left:0;
 
@@ -33,6 +34,7 @@ align-items:center;
 z-index:9999;
 
 }
+
 
 .modal-content{
 
@@ -51,7 +53,10 @@ max-height:80vh;
 
 overflow:auto;
 
+color:white;
+
 }
+
 
 .fechar{
 
@@ -65,70 +70,11 @@ color:#ff7b00;
 
 }
 
-.cardReserva{
-
-background:#1f2937;
-
-padding:15px;
-
-border-radius:12px;
-
-margin-bottom:15px;
-
-}
-
-.cardReserva button{
-
-margin-top:10px;
-margin-right:10px;
-
-padding:10px 15px;
-
-border:none;
-
-border-radius:8px;
-
-cursor:pointer;
-
-font-weight:bold;
-
-}
-
-.btnContrato{
-
-background:#2563eb;
-
-color:white;
-
-}
-
-.btnEditar{
-
-background:#f59e0b;
-
-color:white;
-
-}
-
-.btnExcluir{
-
-background:#dc2626;
-
-color:white;
-
-}
-
-.btnWhatsapp{
-
-background:#16a34a;
-
-color:white;
-
-}
 
 .btn-voltar{
 
 display:inline-block;
+
 margin-bottom:20px;
 
 color:white;
@@ -138,6 +84,7 @@ text-decoration:none;
 font-weight:bold;
 
 }
+
 
 .calendario{
 
@@ -151,9 +98,8 @@ margin-top:25px;
 
 }
 
-.dia{
 
-background:#111827;
+.dia{
 
 height:100px;
 
@@ -175,17 +121,13 @@ transition:.2s;
 
 }
 
+
 .dia:hover{
 
-transform:scale(1.04);
+transform:scale(1.05);
 
 }
 
-.ocupado{
-
-background:#dc2626;
-
-}
 
 .livre{
 
@@ -193,143 +135,529 @@ background:#166534;
 
 }
 
+
+.ocupado{
+
+background:#dc2626;
+
+}
+
+
+.cardReserva{
+
+background:#1f2937;
+
+padding:15px;
+
+border-radius:12px;
+
+margin-bottom:15px;
+
+}
+
+
+.cardReserva button{
+
+padding:10px 15px;
+
+border:none;
+
+border-radius:8px;
+
+cursor:pointer;
+
+margin:5px;
+
+font-weight:bold;
+
+}
+
+
+.btnContrato{
+
+background:#2563eb;
+color:white;
+
+}
+
+
+.btnExcluir{
+
+background:#dc2626;
+color:white;
+
+}
+
+
+.btnWhatsapp{
+
+background:#16a34a;
+color:white;
+
+}
+
+
 </style>
 
+
 </head>
+
 <script>
+
 
 const calendario = document.getElementById("calendario");
 
+
+// ===============================
+// CARREGAR CALENDÁRIO
+// ===============================
+
 async function carregarCalendario(){
+
 
     calendario.innerHTML = "";
 
+
     const hoje = new Date();
+
 
     const ano = hoje.getFullYear();
     const mes = hoje.getMonth();
 
-    const diasNoMes = new Date(ano, mes + 1, 0).getDate();
 
-    const { data: reservas, error } = await supabaseClient
+    const diasNoMes = new Date(
+        ano,
+        mes + 1,
+        0
+    ).getDate();
+
+
+
+    const {data: reservas, error} = await supabaseClient
+
         .from("reservas")
-        .select("cliente, brinquedo, data_evento, status");
+
+        .select("*");
+
+
 
     if(error){
+
         console.log(error);
+
+        alert("Erro ao carregar reservas");
+
         return;
+
     }
+
+
 
     for(let dia = 1; dia <= diasNoMes; dia++){
 
-        const dataAtual =
-            `${ano}-${String(mes+1).padStart(2,"0")}-${String(dia).padStart(2,"0")}`;
 
-        const reservasDia = reservas.filter(r => r.data_evento === dataAtual);
+        const dataAtual =
+
+        `${ano}-${String(mes+1).padStart(2,"0")}-${String(dia).padStart(2,"0")}`;
+
+
+
+        const reservasDia = reservas.filter(r =>
+
+            r.data_evento === dataAtual
+
+        );
+
+
 
         const div = document.createElement("div");
 
+
         div.className = "dia";
 
-        div.innerHTML = `
-            <div style="text-align:center">
-                <strong>${dia}</strong><br>
-                ${reservasDia.length > 0 ? "🔴" : "🟢"}
-            </div>
-        `;
 
-        if(reservasDia.length > 0){
-            div.classList.add("ocupado");
-        }else{
-            div.classList.add("livre");
+
+        div.innerHTML = `
+
+        <div style="text-align:center">
+
+        <strong>${dia}</strong>
+
+        <br>
+
+        ${
+            reservasDia.length > 0
+            ?
+            "🔴 Ocupado"
+            :
+            "🟢 Livre"
         }
 
-        div.onclick = () => mostrarReservas(dataAtual, reservasDia);
+        </div>
+
+        `;
+
+
+
+        if(reservasDia.length > 0){
+
+            div.classList.add("ocupado");
+
+        }else{
+
+            div.classList.add("livre");
+
+        }
+
+
+
+        div.onclick = () => {
+
+            mostrarReservas(
+                dataAtual,
+                reservasDia
+            );
+
+        };
+
+
 
         calendario.appendChild(div);
 
-    }
-
-}
-
-function mostrarReservas(data, reservas){
-
-    const modal = document.getElementById("modalReservas");
-    const conteudo = document.getElementById("conteudoModal");
-    const titulo = document.getElementById("tituloModal");
-
-    titulo.innerHTML = "📅 Reservas - " + data;
-
-    conteudo.innerHTML = "";
-
-    if(reservas.length === 0){
-
-        conteudo.innerHTML = "<p>Nenhuma reserva encontrada para este dia.</p>";
-
-    }else{
-
-        reservas.forEach(r=>{
-
-            conteudo.innerHTML += `
-
-            <div class="cardReserva">
-
-                <h3>👤 ${r.cliente}</h3>
-
-                <p><strong>🎪 Brinquedo:</strong> ${r.brinquedo}</p>
-
-                <p><strong>💰 Valor:</strong> R$ ${r.valor ?? "0,00"}</p>
-
-                <p><strong>📌 Status:</strong> ${r.status}</p>
-
-                <button class="btnContrato"
-                    onclick="abrirContrato('${r.cliente}','${r.brinquedo}','${r.data_evento}','${r.valor}')">
-                    📄 Contrato
-                </button>
-
-                <button class="btnEditar"
-                    onclick="editarReserva(${r.id})">
-                    ✏️ Editar
-                </button>
-
-                <button class="btnExcluir"
-                    onclick="excluirReserva(${r.id})">
-                    🗑️ Excluir
-                </button>
-
-                <button class="btnWhatsapp"
-                    onclick="abrirWhatsapp('${r.telefone || ""}','${r.cliente}')">
-                    📲 WhatsApp
-                </button>
-
-            </div>
-
-            `;
-
-        });
 
     }
 
-    modal.style.display = "flex";
 
 }
 
-    alert(texto);
 
-}
 
-carregarCalendario();
+// ===============================
+// MOSTRAR RESERVAS NO MODAL
+// ===============================
 
-</script>
+
+function mostrarReservas(data,reservas){
+
+
+const modal = document.getElementById("modalReservas");
+
+const titulo = document.getElementById("tituloModal");
+
+const conteudo = document.getElementById("conteudoModal");
+
+
+
+titulo.innerHTML = 
+"📅 Reservas - " + data;
+
+
+
+conteudo.innerHTML = "";
+
+
+
+if(reservas.length === 0){
+
+
+conteudo.innerHTML = `
+
+<p>
+
+Nenhuma reserva para este dia.
+
+</p>
+
+`;
+
+
+
+}else{
+
+
+
+reservas.forEach(r => {
+
+
+
+conteudo.innerHTML += `
+
+
+<div class="cardReserva">
+
+
+<h3>
+
+👤 ${r.cliente}
+
+</h3>
+
+
+<p>
+
+🎪 <strong>Brinquedo:</strong>
+
+${r.brinquedo}
+
+</p>
+
+
+<p>
+
+📞 <strong>Telefone:</strong>
+
+${r.telefone || "Não informado"}
+
+</p>
+
+
+<p>
+
+💰 <strong>Valor:</strong>
+
+R$ ${r.valor || "0,00"}
+
+</p>
+
+
+<p>
+
+📌 <strong>Status:</strong>
+
+${r.status}
+
+</p>
+
+
+
+<button class="btnContrato"
+
+onclick="abrirContrato(${r.id})">
+
+📄 Contrato
+
+</button>
+
+
+
+<button class="btnWhatsapp"
+
+onclick="abrirWhatsapp('${r.telefone}','${r.cliente}')">
+
+📲 WhatsApp
+
+</button>
+
+
+
+<button class="btnExcluir"
+
+onclick="excluirReserva(${r.id})">
+
+🗑 Excluir
+
+</button>
+
+
 
 </div>
 
-</body>
-</html>
 
+`;
+
+
+});
+
+
+}
+
+
+
+modal.style.display="flex";
+
+
+}
+
+
+
+
+// ===============================
+// FECHAR MODAL
+// ===============================
+
+
+function fecharModal(){
+
+document.getElementById("modalReservas").style.display="none";
+
+}
+
+
+
+// ===============================
+// EXCLUIR RESERVA
+// ===============================
+
+
+async function excluirReserva(id){
+
+
+const confirmar = confirm(
+"Deseja realmente excluir esta reserva?"
+);
+
+
+
+if(!confirmar) return;
+
+
+
+const {error} = await supabaseClient
+
+.from("reservas")
+
+.delete()
+
+.eq("id",id);
+
+
+
+if(error){
+
+alert("Erro ao excluir");
+
+console.log(error);
+
+return;
+
+}
+
+
+
+alert("Reserva excluída com sucesso!");
+
+
+
+fecharModal();
+
+carregarCalendario();
+
+
+
+}
+
+
+
+
+// ===============================
+// WHATSAPP
+// ===============================
+
+
+function abrirWhatsapp(numero,nome){
+
+
+if(!numero){
+
+alert("Cliente sem telefone cadastrado");
+
+return;
+
+}
+
+
+
+let mensagem = 
+
+`Olá ${nome}, tudo bem? Aqui é da Encanto Kids Infláveis.`;
+
+
+let link = 
+
+"https://wa.me/55" +
+
+numero.replace(/\D/g,"") +
+
+"?text=" +
+
+encodeURIComponent(mensagem);
+
+
+
+window.open(link,"_blank");
+
+
+}
+
+
+
+
+// ===============================
+// CONTRATO
+// ===============================
+
+
+async function abrirContrato(id){
+
+
+
+const {data,error}= await supabaseClient
+
+.from("reservas")
+
+.select("*")
+
+.eq("id",id)
+
+.single();
+
+
+
+if(error){
+
+alert("Erro ao buscar contrato");
+
+return;
+
+}
+
+
+
+localStorage.setItem(
+
+"contratoAtual",
+
+JSON.stringify(data)
+
+);
+
+
+
+window.location.href="contrato.html";
+
+}
+
+
+
+
+// INICIAR
+
+carregarCalendario();
+
+
+
+</script>
+
+
+</body>
+
+</html>
+    
 <body>
 
+
 <div class="content">
+
 
 <a href="dashboard.html" class="btn-voltar">
 
@@ -337,23 +665,40 @@ carregarCalendario();
 
 </a>
 
-<h1>Calendário de Reservas</h1>
 
-<div id="calendario" class="calendario">
-<div id="modalReservas" class="modal">
+<h1>📅 Calendário de Reservas</h1>
 
-    <div class="modal-content">
 
-        <span class="fechar" onclick="fecharModal()">&times;</span>
+<div id="calendario" class="calendario"></div>
 
-        <h2 id="tituloModal">Reservas</h2>
 
-        <div id="conteudoModal">
-
-        </div>
-
-    </div>
 
 </div>
+
+
+
+<div id="modalReservas" class="modal">
+
+
+<div class="modal-content">
+
+
+<span class="fechar" onclick="fecharModal()">
+&times;
+</span>
+
+
+<h2 id="tituloModal">
+Reservas
+</h2>
+
+
+<div id="conteudoModal">
+
+</div>
+
+
+</div>
+
 
 </div>
