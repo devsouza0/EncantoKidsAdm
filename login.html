@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - Encanto Kids</title>
+
+<style>
+
+body{
+    background:#0f172a;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    font-family:Arial,sans-serif;
+}
+
+.login-box{
+    background:#111827;
+    padding:30px;
+    border-radius:15px;
+    width:350px;
+}
+
+h1{
+    color:white;
+    text-align:center;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    margin-bottom:15px;
+    border:none;
+    border-radius:10px;
+    box-sizing:border-box;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#ff7b00;
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="login-box">
+
+    <h1>Encanto Kids</h1>
+
+    <input
+        type="text"
+        id="usuario"
+        placeholder="Usuário">
+
+    <input
+        type="password"
+        id="senha"
+        placeholder="Senha">
+
+    <button onclick="login()">
+        Entrar
+    </button>
+
+</div>
+
+<script>
+
+function login(){
+
+    const usuario =
+        document.getElementById("usuario").value;
+
+    const senha =
+        document.getElementById("senha").value;
+
+    if(
+        usuario === "vinnysouza" &&
+        senha === "admin1"
+    ){
+
+        localStorage.setItem(
+            "logado",
+            "sim"
+        );
+
+        window.location.href =
+            "dashboard.html";
+
+    }else{
+
+        alert("Usuário ou senha inválidos.");
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
