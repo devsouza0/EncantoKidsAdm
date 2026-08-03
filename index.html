@@ -209,48 +209,55 @@ function login(){
     const erro =
     document.getElementById("erro");
 
-    const usuarios = [
+const usuarios = [
 
-        {
-            usuario:"vinysouza",
-            senha:"kjkszpj3"
-        },
+    {
+        usuario:"vinysouza",
+        senha:"kjkszpj3",
+        cargo:"Programador"
+    },
 
-        {
-            usuario:"betosouza",
-            senha:"beto123"
-        },
+    {
+        usuario:"betosouza",
+        senha:"beto123",
+        cargo:"Ceo"
+    },
 
-        {
-            usuario:"dayanasouza",
-            senha:"dayana123"
-        }
+    {
+        usuario:"dayanasouza",
+        senha:"dayana123",
+        cargo:"Ceo"
+    }
+    
+    {
+        usuario:"phsouzawx",
+        senha:"470947",
+        cargo:"Funcionário"
+    }
 
-    ];
+];
 
-    const loginValido = usuarios.find(
-        u =>
-        u.usuario === usuario &&
-        u.senha === senha
+if(loginValido){
+
+    localStorage.setItem("logado","sim");
+
+    localStorage.setItem(
+        "usuario",
+        loginValido.usuario
     );
 
-    if(loginValido){
+    localStorage.setItem(
+        "cargo",
+        loginValido.cargo
+    );
 
-        localStorage.setItem("logado","sim");
+    window.location.href =
+    "dashboard.html";
 
-        localStorage.setItem(
-            "usuario",
-            loginValido.usuario
-        );
+}else{
 
-        window.location.href =
-        "dashboard.html";
+    erro.style.display = "block";
 
-    }else{
-
-        erro.style.display = "block";
-
-    }
 
 }
 
