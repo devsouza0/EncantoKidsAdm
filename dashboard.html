@@ -85,10 +85,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             <p>Bem-vindo ao sistema Encanto Kids</p>
         </div>
 
-        <div class="user">
-            <i class="fas fa-user-circle"></i>
-            Administrador
-        </div>
+<div class="user">
+    <i class="fas fa-user-circle"></i>
+    <span id="usuarioLogado"></span>
+</div>
 
     </header>
 
@@ -213,6 +213,8 @@ async function carregarDashboard(){
 }
 
 carregarDashboard();
+    document.getElementById("usuarioLogado").innerText =
+    localStorage.getItem("usuario") || "Administrador";
 
 </script>
 
