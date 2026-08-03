@@ -33,7 +33,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 }
 </style>
 
-</head>
 
 </head>
 <body>
@@ -75,17 +74,17 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             <span>Calendário</span>
         </a>
 
-        <a href="financeiro.html">
+        <a href="financeiro.html" id="menuFinanceiro">
             <i class="fas fa-money-bill-wave"></i>
             <span>Financeiro</span>
         </a>
 
-        <a href="#">
+        <a href="#" id="menuRelatorios">
             <i class="fas fa-chart-line"></i>
             <span>Relatórios</span>
         </a>
 
-        <a href="#">
+        <a href="#" id="menuConfiguracoes">
             <i class="fas fa-gear"></i>
             <span>Configurações</span>
         </a>
@@ -257,12 +256,13 @@ function logout(){
 
     localStorage.removeItem("logado");
     localStorage.removeItem("usuario");
+    localStorage.removeItem("cargo");
 
     window.location.href = "index.html";
 
 }
 
-</script>
+</script> 
 
 </body>
 </html>
