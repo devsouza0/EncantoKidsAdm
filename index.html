@@ -238,6 +238,11 @@ const usuarios = [
 ];
 
 if(loginValido){
+    localStorage.setItem("logado","sim");
+localStorage.setItem("usuario", loginValido.usuario);
+localStorage.setItem("cargo", loginValido.cargo);
+
+window.location.href = "dashboard.html";
 
     localStorage.setItem("logado","sim");
 
