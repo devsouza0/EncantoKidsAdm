@@ -244,8 +244,14 @@ async function carregarDashboard(){
 
 carregarDashboard();
 
+const usuario =
+localStorage.getItem("usuario");
+
+const cargo =
+localStorage.getItem("cargo");
+
 document.getElementById("usuarioLogado").innerText =
-localStorage.getItem("usuario") || "Administrador";
+usuario + " (" + cargo + ")";
 
 function logout(){
 
