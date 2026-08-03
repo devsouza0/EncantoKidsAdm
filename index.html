@@ -209,64 +209,57 @@ function login(){
     const erro =
     document.getElementById("erro");
 
-const usuarios = [
+    const usuarios = [
 
-    {
-        usuario:"vinysouza",
-        senha:"kjkszpj3",
-        cargo:"Programador"
-    },
+        {
+            usuario:"vinysouza",
+            senha:"kjkszpj3",
+            cargo:"Programador"
+        },
 
-    {
-        usuario:"betosouza",
-        senha:"beto123",
-        cargo:"Ceo"
-    },
+        {
+            usuario:"betosouza",
+            senha:"beto123",
+            cargo:"Ceo"
+        },
 
-    {
-        usuario:"dayanasouza",
-        senha:"dayana123",
-        cargo:"Ceo"
-    }
-    
-    {
-        usuario:"phsouzawx",
-        senha:"470947",
-        cargo:"Funcionário"
-    }
+        {
+            usuario:"dayanasouza",
+            senha:"dayana123",
+            cargo:"Ceo"
+        },
 
-];
+        {
+            usuario:"phsouzawx",
+            senha:"470947",
+            cargo:"Funcionário"
+        }
 
-if(loginValido){
-localStorage.setItem("logado","sim");
-localStorage.setItem("usuario", loginValido.usuario);
-localStorage.setItem("cargo", loginValido.cargo);
+    ];
 
-window.location.href = "dashboard.html";
-
-    localStorage.setItem("logado","sim");
-
-    localStorage.setItem(
-        "usuario",
-        loginValido.usuario
+    const loginValido = usuarios.find(
+        u =>
+        u.usuario === usuario &&
+        u.senha === senha
     );
 
-    localStorage.setItem(
-        "cargo",
-        loginValido.cargo
-    );
+    if(loginValido){
 
-    window.location.href =
-    "dashboard.html";
+        localStorage.setItem("logado","sim");
+        localStorage.setItem("usuario", loginValido.usuario);
+        localStorage.setItem("cargo", loginValido.cargo);
 
-}else{
+        window.location.href = "dashboard.html";
 
-    erro.style.display = "block";
+    }else{
 
+        erro.style.display = "block";
+
+    }
 
 }
 
-document.addEventListener("keypress",function(e){
+document.addEventListener("keypress", function(e){
 
     if(e.key === "Enter"){
         login();
