@@ -262,6 +262,23 @@ function logout(){
 
 }
 
+if(cargo !== "admin"){
+
+    const financeiro =
+    document.getElementById("menuFinanceiro");
+
+    const relatorios =
+    document.getElementById("menuRelatorios");
+
+    const configuracoes =
+    document.getElementById("menuConfiguracoes");
+
+    if(financeiro) financeiro.style.display = "none";
+    if(relatorios) relatorios.style.display = "none";
+    if(configuracoes) configuracoes.style.display = "none";
+
+}
+
 </script> 
 
 </body>
