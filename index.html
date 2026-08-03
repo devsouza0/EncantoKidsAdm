@@ -269,13 +269,10 @@ const loginValido = usuarios.find(
 
 if(loginValido){
 
-        localStorage.setItem(
-            "logado",
-            "sim"
-        );
+        localStorage.setItem("logado", "sim");
+localStorage.setItem("usuario", usuario);
 
-        window.location.href =
-        "dashboard.html";
+window.location.href = "dashboard.html";
 
     }else{
 
