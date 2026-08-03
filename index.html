@@ -179,7 +179,7 @@ body::after{
 
         <i class="fa-solid fa-balloon"></i>
 
-        <h1>Encanto Kids</h1>
+        <h1>Encanto Kids Painel 💻</h1>
 
         <p>Painel Administrativo</p>
 
@@ -242,13 +242,32 @@ function login(){
 
     // ALTERE AQUI
 
-    const usuarioCorreto = "admin";
-    const senhaCorreta = "123456";
+const usuarios = [
 
-    if(
-        usuario === usuarioCorreto &&
-        senha === senhaCorreta
-    ){
+    {
+        usuario:"vinysouza",
+        senha:"kjkszpj3"
+    },
+
+    {
+        usuario:"betosouza",
+        senha:"beto123"
+    },
+
+    {
+        usuario:"dayanasouza",
+        senha:"dayana123"
+    }
+
+];
+
+const loginValido = usuarios.find(
+    u =>
+    u.usuario === usuario &&
+    u.senha === senha
+);
+
+if(loginValido){
 
         localStorage.setItem(
             "logado",
