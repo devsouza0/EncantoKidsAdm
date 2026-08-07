@@ -288,8 +288,10 @@ if(cargo !== "Ceo"){
 const menuBtn = document.getElementById("menuMobile");
 const sidebar = document.querySelector(".sidebar");
 
-menuBtn.addEventListener("click", () => {
-    sidebar.classList.toggle("abrir");
+if(menuBtn && sidebar){
+    menuBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("abrir");
+}
 });
 </script>
 </body>
