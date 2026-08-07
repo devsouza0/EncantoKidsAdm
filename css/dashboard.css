@@ -25,6 +25,10 @@ padding:25px;
 box-shadow:0 0 30px rgba(37,99,235,.08);
 }
 
+.sidebar.abrir{
+left:0;
+}
+
 .logo{
 display:flex;
 align-items:center;
