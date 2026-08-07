@@ -285,13 +285,17 @@ if(cargo !== "Ceo"){
 </script> 
 
     <script>
-const menuBtn = document.getElementById("menuMobile");
-const sidebar = document.querySelector(".sidebar");
+document.addEventListener("DOMContentLoaded", () => {
 
-if(menuBtn && sidebar){
-    menuBtn.addEventListener("click", () => {
-        sidebar.classList.toggle("abrir");
-}
+    const menuBtn = document.getElementById("menuMobile");
+    const sidebar = document.querySelector(".sidebar");
+
+    if(menuBtn && sidebar){
+        menuBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("abrir");
+        });
+    }
+
 });
 </script>
 </body>
